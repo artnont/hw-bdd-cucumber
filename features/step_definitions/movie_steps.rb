@@ -18,7 +18,11 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  pending "Fill in this step in movie_steps.rb"
+  # Get the entire content of the page as a string
+  page_content = page.body
+  regex = /#{e1}.*#{e2}/m
+  expect(page_content).to match(regex)
+
 end
 
 # Make it easier to express checking or unchecking several boxes at once
