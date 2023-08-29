@@ -45,6 +45,11 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  def search_tmdb
+    redirect_to root_path
+    flash[:notice] = "'#{params[:movie][:title]}' was not found in TMDb."
+  end
+
   private
 
   def force_index_redirect
@@ -66,7 +71,9 @@ class MoviesController < ApplicationController
   def sort_by
     params[:sort_by] || session[:sort_by] || 'id'
   end
+
   
+
   private
     # Making "internal" methods private is not required, but is a common practice.
     # This helps make clear which methods respond to requests, and which ones do not.
