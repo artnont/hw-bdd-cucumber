@@ -25,22 +25,42 @@ end
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
 
-When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
-  # HINT: use String#split to split up the rating_list, then
-  #   iterate over the ratings and reuse the "When I check..." or
-  #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-  pending "Fill in this step in movie_steps.rb"
+When /I (un)?check the following ratings: (.*)/ do |c, rating|
+  rating_list = rating.split(", ")
+  if c
+    rating_list.each do |x|
+      # uncheck("ratings[#{x}]")
+      steps %Q{And I uncheck "#{x}"}
+    end
+  else
+    rating_list.each do |x|
+      # check("ratings[#{x}]")
+      steps %Q{And I check "#{x}"}
+    end
+  end
 end
 
 # Part 2, Step 3
-Then /^I should (not )?see the following movies: (.*)$/ do |no, movie_list|
+Then /^I should (not )?see the following movies: (.*)$/ do |no, movie|
   # Take a look at web_steps.rb Then /^(?:|I )should see "([^"]*)"$/
-  pending "Fill in this step in movie_steps.rb"
+  movie_list = movie.split(", ")
+  if no
+    movie_list.each do |m|
+      steps %Q{And I should not see #{m}}
+    end
+  else
+    movie_list.each do |m|
+      steps %Q{And I should see #{m}}
+    end
+  end
 end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
-  pending "Fill in this step in movie_steps.rb"
+  movie_list = Movie.all
+  movie_list.each do |m|
+    steps %Q{And I should see "#{m.title}"}
+  end
 end
 
 ### Utility Steps Just for this assignment.
