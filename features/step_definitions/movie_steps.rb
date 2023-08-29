@@ -6,7 +6,6 @@ Given /the following movies exist/ do |movies_table|
     # you should arrange to add that movie to the database here.
     Movie.create(movie)
   end
-  pending "Fill in this step in movie_steps.rb"
 end
 
 Then /(.*) seed movies should exist/ do | n_seeds |
